@@ -30,13 +30,13 @@ public:
 
 	size_t getCount() const;
 
-	void addFruit(const MyString& name, const MyString& manifacturer, const time_t expiryDate, int kcal, double price);
-	void addVegetable(const MyString& name, const MyString& manifacturer, const time_t expiryDate, int kcal, double price);
-	void addDrink(const MyString& name, const MyString& manifacturer, const time_t expiryDate, int ml, double price);
-	void addAlcoholDrink(const MyString& name, const MyString& manifacturer, const time_t expiryDate, int ml, int alcP, double price);
+	void addFruit(const MyString& name, const MyString& manufacturer, const time_t expiryDate, int kcal, double price);
+	void addVegetable(const MyString& name, const MyString& manufacturer, const time_t expiryDate, int kcal, double price);
+	void addDrink(const MyString& name, const MyString& manufacturer, const time_t expiryDate, int ml, double price);
+	void addAlcoholDrink(const MyString& name, const MyString& manufacturer, const time_t expiryDate, int ml, int alcP, double price);
 
 	void remove(size_t index); // remove product by index
-	void remove(const MyString& name, const MyString& manifacturer, const time_t expiryDate, double price); //remove first product with these specifics
+	void remove(const MyString& name, const MyString& manufacturer, const time_t expiryDate, double price); //remove first product with these specifics
 	void remove(Product* product);//remove product
 
 	void log();//get information 
@@ -47,5 +47,7 @@ public:
 
 	double getTotalLostOfMoney() const;// get lost money due to expired date
 
-
+	bool read(const MyString& name);
+	bool write(const MyString& name) const;
+	void print() const;
 };

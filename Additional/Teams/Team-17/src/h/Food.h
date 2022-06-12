@@ -2,7 +2,7 @@
 #include "MyString.h"
 #include "Product.h"
 
-class Food :virtual  public Product
+class Food :virtual public Product
 {
 public:
 

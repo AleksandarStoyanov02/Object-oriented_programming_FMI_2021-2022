@@ -85,6 +85,31 @@ MyString& MyString::operator+=(const MyString& other)
 	return *this;
 }
 
+Vector<MyString> MyString::split(char s) const
+{
+	int count = 0;
+	for (size_t i = 0; i < size; i++)
+		if (str[i] == s)
+			count++;
+
+	Vector<MyString> list;
+	size_t strIndex = 0;
+	while (str[strIndex] != '\0') {
+		char current[1024];
+		size_t i = 0;
+		while (str[strIndex] != s && str[strIndex] != '\0')
+			current[i++] = str[strIndex++];
+		current[i] = '\0';
+		MyString currentStr(current);
+		list.pushBack(currentStr);
+		if (str[strIndex] == '\0')
+			break;
+		++strIndex;
+	}
+
+	return list;
+}
+
 std::istream& operator>>(std::istream& in, MyString& str)
 {
 	delete[] str.str;
@@ -134,4 +159,12 @@ void MyString::getLine(std::istream& outFile)
 		str[i] = buff[i];
 	str[len] = '\0';
 	size = len;
+}
+
+double MyString::parseDouble() const {
+	return atof(str);
+}
+
+int MyString::parseInt() const {
+	return atoi(str);
 }

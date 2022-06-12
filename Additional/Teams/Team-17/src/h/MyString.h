@@ -1,5 +1,6 @@
 #pragma once
 #include <fstream>
+#include "Vector.h"
 
 class MyString
 {
@@ -28,12 +29,13 @@ public:
 	const char* c_str() const;
 
 	MyString& operator+=(const MyString&);
-
+	Vector<MyString> split(char s) const;
 	friend std::istream& operator>>(std::istream&, MyString&);
 	friend std::ostream& operator<<(std::ostream&, const MyString&);
 
 	void getLine(std::istream& outFile);
-
+	double parseDouble() const;
+	int parseInt() const;
 };
 
 MyString operator+(const MyString&, const MyString&);

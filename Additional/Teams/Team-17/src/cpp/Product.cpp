@@ -1,6 +1,6 @@
 #include "Product.h"
 
-Product::Product(const MyString& name, const MyString& manifacturer, const time_t expiryDate, double price)
+Product::Product(const MyString& name, const MyString& manufacturer, const time_t expiryDate, double price)
 {
 	this->name = name;
 	this->manufacturer = manufacturer;
@@ -42,3 +42,4 @@ void Product::setManufacturer(const MyString& manufacturer)
 {
 	this->manufacturer = manufacturer;
 }
+

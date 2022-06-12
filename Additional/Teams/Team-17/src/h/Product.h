@@ -13,7 +13,7 @@ protected:
 
 public:
 
-	Product(const MyString& name, const MyString& manifacturer, const time_t expiryDate, double price);
+	Product(const MyString& name, const MyString& manufacturer, const time_t expiryDate, double price);
 
 	virtual Product* clone() const = 0;
 	virtual void print() const = 0;

@@ -70,28 +70,28 @@ void Storage::addProduct(Product* product)
 	products[productsCount++] = product;
 }
 
-void Storage::addFruit(const MyString& name, const MyString& manifacturer, const time_t expiryDate, int kcal, double price)
+void Storage::addFruit(const MyString& name, const MyString& manufacturer, const time_t expiryDate, int kcal, double price)
 {
-	Food* fruit = new Fruit(name, manifacturer, expiryDate, kcal, price);
+	Food* fruit = new Fruit(name, manufacturer, expiryDate, kcal, price);
 	addProduct(fruit);
 	logData.pushBack("Add fruit");
 }
-void Storage::addDrink(const MyString& name, const MyString& manifacturer, const time_t expiryDate, int ml, double price)
+void Storage::addDrink(const MyString& name, const MyString& manufacturer, const time_t expiryDate, int ml, double price)
 {
-	Drink* drink = new Drink(name, manifacturer, expiryDate, price, ml);
+	Drink* drink = new Drink(name, manufacturer, expiryDate, price, ml);
 	addProduct(drink);
 	logData.pushBack("Add Drink");
 }
 
-void Storage::addVegetable(const MyString& name, const MyString& manifacturer, const time_t expiryDate, int kcal, double price)
+void Storage::addVegetable(const MyString& name, const MyString& manufacturer, const time_t expiryDate, int kcal, double price)
 {
-	Vegetable* vegetable = new Vegetable(name, manifacturer, expiryDate, kcal, price);
+	Vegetable* vegetable = new Vegetable(name, manufacturer, expiryDate, kcal, price);
 	addProduct(vegetable);
 	logData.pushBack("Add Vegetable");
 }
-void Storage::addAlcoholDrink(const MyString& name, const MyString& manifacturer, const time_t expiryDate, int ml, int alcP, double price)
+void Storage::addAlcoholDrink(const MyString& name, const MyString& manufacturer, const time_t expiryDate, int ml, int alcP, double price)
 {
-	AlcoholDrink* drink = new AlcoholDrink(name, manifacturer, expiryDate, ml, price, alcP);
+	AlcoholDrink* drink = new AlcoholDrink(name, manufacturer, expiryDate, ml, price, alcP);
 	addProduct(drink);
 	logData.pushBack("Add Alcohol Drink");
 }
@@ -106,12 +106,12 @@ void Storage::remove(size_t index)
 	productsCount--;
 	logData.pushBack("Removed item");
 }
-void Storage::remove(const MyString& name, const MyString& manifacturer, const time_t expiryDate, double price)
+void Storage::remove(const MyString& name, const MyString& manufacturer, const time_t expiryDate, double price)
 {
 	int index = -1;
 	for (int i = 0; i < productsCount; i++)
 	{
-		if (products[i]->getName() == name && products[i]->getManufacturer() == manifacturer && products[i]->getExpiryDate() == expiryDate && products[i]->getPrice() == price)
+		if (products[i]->getName() == name && products[i]->getManufacturer() == manufacturer && products[i]->getExpiryDate() == expiryDate && products[i]->getPrice() == price)
 		{
 			index = i;
 			break;
@@ -163,4 +163,89 @@ void Storage::clean()
 double Storage::getTotalLostOfMoney() const
 {
 	return lostMoney;
+}
+
+
+char* readStringFromFile(std::ifstream& file) {
+	size_t stringLength;
+	file.read((char *)&stringLength, sizeof(size_t));
+	char* str = new char[stringLength + 1];
+	file.read(str, stringLength);
+	str[stringLength] = '\0';
+
+	return str;
+}
+
+bool Storage::read(const MyString& name)
+{
+	std::ifstream file(name.c_str(), std::ios::_Nocreate);
+	if (!file.is_open())
+		return false;
+	size_t size;
+	file.read((char*)&size, sizeof(size_t));
+	for (size_t i = 0; i < size; i++) {
+		MyString productName = readStringFromFile(file);
+		time_t dateOfArrival;
+		size_t sizeOfDateOfArrival;
+		file.read((char*)&sizeOfDateOfArrival, sizeof(size_t));
+		file.read((char*)&dateOfArrival, sizeOfDateOfArrival);
+
+		time_t expiryDate;
+		size_t sizeOfExpiryDate;
+		file.read((char*)&sizeOfExpiryDate, sizeof(size_t));
+		file.read((char*)&expiryDate, sizeOfExpiryDate);
+
+		MyString manufacturerName = readStringFromFile(file);
+
+		double price;
+		file.read((char*)&price, sizeof(double));
+	}
+
+
+	file.close();
+	return true;
+}
+
+bool Storage::write(const MyString& name) const
+{
+	std::ofstream file(name.c_str());
+	if (!file.is_open())
+		return false;
+
+	size_t size = getCount();
+	file.write((const char*)&size, sizeof(size_t));
+	for (size_t i = 0; i < size; i++) {
+		size_t sizeOfName = strlen(products[i]->getName().c_str());
+		size_t sizeOfManufacturer = strlen(products[i]->getManufacturer().c_str());
+		double price = products[i]->getPrice();
+		time_t expiryDate = products[i]->getExpiryDate();
+		time_t dateOfArrival = products[i]->getDateOfArrival();
+
+		size_t sizeOfDateOfArrival = sizeof(dateOfArrival);
+		size_t sizeOfExpiryDate = sizeof(expiryDate);
+		file.write((const char*)&sizeOfName, sizeof(size_t));
+		file.write(products[i]->getName().c_str(), sizeOfName);
+
+		file.write((const char*)&sizeOfDateOfArrival, sizeof(size_t));
+		file.write((const char*)&dateOfArrival, sizeOfDateOfArrival);
+
+		file.write((const char*)&sizeOfExpiryDate, sizeof(size_t));
+		file.write((const char*)&expiryDate, sizeOfExpiryDate);
+
+		file.write((const char*)&sizeOfManufacturer, sizeof(size_t));
+		file.write(products[i]->getManufacturer().c_str(), sizeOfManufacturer);
+
+		file.write((const char*)&price, sizeof(double));
+	}
+	file.close();
+	return true;
+}
+
+void Storage::print() const
+{
+	size_t size = getCount();
+	for (size_t i = 0; i < size; i++) {
+		std::cout << i + 1 << ". ";
+		products[i]->print();
+	} 
 }

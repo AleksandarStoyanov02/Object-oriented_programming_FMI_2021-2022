@@ -1,7 +1,7 @@
 #pragma once
 #include "Product.h"
 
-class Drink :virtual public Product
+class Drink : virtual public Product
 {
 public:
 
