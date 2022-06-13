@@ -3,6 +3,7 @@
 #include <iostream>
 AlcoholDrink::AlcoholDrink(const MyString& name, const MyString& manifacturer, const time_t expiryDate, int ml, double price, int alcP) : Drink(name, manifacturer, expiryDate, ml, price), Product(name, manifacturer, expiryDate, price)
 {
+	type = Type::AlcoholDrink;
 	setAlcP(alcP);
 }
 void AlcoholDrink::setAlcP(int alcP)
@@ -14,6 +15,11 @@ void AlcoholDrink::setAlcP(int alcP)
 int AlcoholDrink::getAlcP() const
 {
 	return alcP;
+}
+
+Product::Type AlcoholDrink::getType() const
+{
+	return type;
 }
 
 void AlcoholDrink::print() const

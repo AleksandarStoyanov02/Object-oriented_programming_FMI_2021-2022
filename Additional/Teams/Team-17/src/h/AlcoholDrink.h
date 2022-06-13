@@ -14,6 +14,7 @@ public:
 
 	void setAlcP(int alcP);
 	int getAlcP() const;
+	Type getType() const; 
 
 	Product* clone() const override;
 	void print() const override;

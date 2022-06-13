@@ -10,4 +10,6 @@ public:
 	Product* clone() const override;
 
 	void print() const override;
+
+	Type getType() const;
 };

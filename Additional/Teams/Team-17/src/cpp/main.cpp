@@ -5,15 +5,7 @@
 int main() {
 	Storage list;
 	MyString buffer;
-
-	std::cin >> buffer;
-	const MyString fileName = buffer;
-	if (list.read(buffer))
-		std::cout << "Successfully opened " << buffer << std::endl;
-	else
-		std::cout << "File couldn't open " << buffer << std::endl;
-	std::cin.ignore();
-
+	
 	std::cout << "1.Print" << std::endl;
 	std::cout << "2.Add" << std::endl;
 	std::cout << "3.Remove by index" << std::endl;
@@ -22,7 +14,8 @@ int main() {
 	std::cout << "7.Income" << std::endl;
 	std::cout << "8.Clean" << std::endl;
 	std::cout << "9.Lost money" << std::endl;
-	std::cout << "10.Save" << std::endl;
+
+	std::cin >> buffer;
 
 	do {
 		buffer.getLine(std::cin);
@@ -73,9 +66,6 @@ int main() {
 		}
 		else if (strcmp(currentCommands[0].c_str(), "Lost money") == 0) {
 			list.getTotalLostOfMoney();
-		}
-		else if (strcmp(currentCommands[0].c_str(), "Save") == 0) {
-			list.write(fileName);
 		}
 	} while (strcmp(buffer.c_str(), "quit") != 0);
 }

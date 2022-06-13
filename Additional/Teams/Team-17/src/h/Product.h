@@ -5,6 +5,13 @@
 class Product
 {
 protected:
+	enum Type {
+		Fruit,
+		Vegetable,
+		Drink,
+		AlcoholDrink,
+		Unknown
+	}type;
 	MyString name;
 	time_t dateOfArrival = time(NULL); //data na postupvane v sklada
 	time_t expiryDate;   //srok na godnost
@@ -23,6 +30,7 @@ public:
 
 	time_t getDateOfArrival() const;
 	time_t getExpiryDate() const;
+	Type getType() const;
 
 	void setName(const MyString& name);
 	void setManufacturer(const MyString& manufacturer);
