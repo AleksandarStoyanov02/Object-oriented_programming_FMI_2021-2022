@@ -13,7 +13,6 @@ int main() {
 	std::cout << "6.Log" << std::endl;
 	std::cout << "7.Income" << std::endl;
 	std::cout << "8.Clean" << std::endl;
-	std::cout << "9.Lost money" << std::endl;
 
 	std::cin >> buffer;
 
@@ -51,8 +50,7 @@ int main() {
 			}
 			else if (strcmp(currentCommands[1].c_str(), "with parameters") == 0) {
 				std::time_t t = std::time(0);
-				list.remove(currentCommands[2], currentCommands[3], t,
-					currentCommands[6].parseDouble());
+				list.remove(currentCommands[2], currentCommands[3]);
 			}
 		}
 		else if (strcmp(currentCommands[0].c_str(), "Log") == 0) {
@@ -63,9 +61,6 @@ int main() {
 		}
 		else if (strcmp(currentCommands[0].c_str(), "Clean") == 0) {
 			list.clean();
-		}
-		else if (strcmp(currentCommands[0].c_str(), "Lost money") == 0) {
-			list.getTotalLostOfMoney();
 		}
 	} while (strcmp(buffer.c_str(), "quit") != 0);
 }

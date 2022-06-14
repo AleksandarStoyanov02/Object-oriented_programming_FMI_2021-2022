@@ -5,12 +5,12 @@
 class Product
 {
 protected:
-	enum Type {
+	enum class Type {
 		Fruit,
 		Vegetable,
 		Drink,
 		AlcoholDrink,
-		Unknown
+		Unknown,
 	}type;
 	MyString name;
 	time_t dateOfArrival = time(NULL); //data na postupvane v sklada
@@ -20,12 +20,12 @@ protected:
 
 public:
 
-	Product(const MyString& name, const MyString& manufacturer, const time_t expiryDate, double price);
+	Product(const MyString& name, const MyString& manufacturer, const time_t expiryDate, const double price);
 
 	virtual Product* clone() const = 0;
 	virtual void print() const = 0;
 
-	const MyString& getName() const;
+	const MyString& getName() const; 
 	const MyString& getManufacturer() const;
 
 	time_t getDateOfArrival() const;

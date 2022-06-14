@@ -67,7 +67,7 @@ void Storage::addProduct(Product* product)
 {
 	if (productsCount == capacity)
 		resize();
-	products[productsCount++] = product;
+	products[productsCount++] = product->clone();
 }
 
 void Storage::addFruit(const MyString& name, const MyString& manufacturer, const time_t expiryDate, int kcal, double price)
@@ -101,17 +101,17 @@ void Storage::remove(size_t index)
 	if (index >= productsCount)
 		throw "Invalid index!";
 	delete products[index];
-	for (int i = index; i < productsCount; i++)
+	for (int i = index; i < productsCount - 1; i++)
 		products[i] = products[i + 1];
 	productsCount--;
 	logData.pushBack("Removed item");
 }
-void Storage::remove(const MyString& name, const MyString& manufacturer, const time_t expiryDate, double price)
+void Storage::remove(const MyString& name, const MyString& manufacturer)
 {
 	int index = -1;
 	for (int i = 0; i < productsCount; i++)
 	{
-		if (products[i]->getName() == name && products[i]->getManufacturer() == manufacturer && products[i]->getExpiryDate() == expiryDate && products[i]->getPrice() == price)
+		if (products[i]->getName() == name && products[i]->getManufacturer() == manufacturer)
 		{
 			index = i;
 			break;
@@ -150,7 +150,7 @@ void Storage::log()
 		std::cout << i + 1 << ". " << logData[i].c_str() << std::endl;
 	}
 }
-void Storage::clean()
+bool Storage::clean()
 {
 	time_t currDate = std::time(NULL);
 	std::tm* now = std::localtime(&currDate);
@@ -159,6 +159,8 @@ void Storage::clean()
 		if (products[i]->getExpiryDate() >= currDate)
 			remove(i);
 	}
+	getTotalLostOfMoney();
+	return true;
 }
 double Storage::getTotalLostOfMoney() const
 {

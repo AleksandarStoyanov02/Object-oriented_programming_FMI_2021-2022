@@ -6,7 +6,7 @@ Product::Product(const MyString& name, const MyString& manufacturer, const time_
 	this->manufacturer = manufacturer;
 	this->expiryDate = expiryDate;
 	this->price = price;
-	type = Unknown;
+	type = Type::Unknown;
 }
 
 double Product::getPrice() const

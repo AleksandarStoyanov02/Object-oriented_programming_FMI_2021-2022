@@ -1,6 +1,6 @@
 #pragma once
 #include <fstream>
-#include "Vector.h"
+#include "Vector.hpp"
 
 class MyString
 {
@@ -18,8 +18,8 @@ public:
 	MyString(const char*);
 
 	MyString(const MyString&);
-	MyString& operator = (const MyString&);
-	MyString& operator=(MyString&);
+	MyString& operator=(const MyString&);
+	MyString& operator=(MyString&& other);
 
 	~MyString();
 

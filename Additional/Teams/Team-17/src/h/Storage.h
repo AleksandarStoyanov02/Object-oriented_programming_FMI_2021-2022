@@ -4,7 +4,7 @@
 #include "AlcoholDrink.h"
 #include "Fruit.h"
 #include "Vegetable.h"
-#include "Vector.h"
+#include "Vector.hpp"
 
 class Storage
 {
@@ -36,18 +36,16 @@ public:
 	void addAlcoholDrink(const MyString& name, const MyString& manufacturer, const time_t expiryDate, int ml, int alcP, double price);
 
 	void remove(size_t index); // remove product by index
-	void remove(const MyString& name, const MyString& manufacturer, const time_t expiryDate, double price); //remove first product with these specifics
+	void remove(const MyString& name, const MyString& manufacturer); //remove first product with these specifics
 	void remove(Product* product);//remove product
 
 	void log();//get information 
 
 	double getCurrentIncome() const;//return the price of all products
 
-	void clean();//delete all products with expired date
+	bool clean();//delete all products with expired date
 
 	double getTotalLostOfMoney() const;// get lost money due to expired date
 
-	bool read(const MyString& name);
-	bool write(const MyString& name) const;
 	void print() const;
 };

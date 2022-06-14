@@ -33,7 +33,7 @@ MyString::MyString(const MyString& other)
 {
 	copyFrom(other);
 }
-MyString& MyString::operator= (const MyString& other)
+MyString& MyString::operator=(const MyString& other)
 {
 	if (this != &other)
 	{
@@ -42,7 +42,7 @@ MyString& MyString::operator= (const MyString& other)
 	}
 	return *this;
 }
-MyString& MyString::operator=(MyString& other)
+MyString& MyString::operator=(MyString&& other)
 {
 	if (this != &other)
 	{
