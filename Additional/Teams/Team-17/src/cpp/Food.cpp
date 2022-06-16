@@ -2,7 +2,8 @@
 #include <iostream>
 #include <ctime>
 
-Food::Food(const MyString& name, const MyString& manifacturer, const time_t expiryDate, int kcal, double price) :Product(name, manifacturer, expiryDate, price)
+Food::Food(const MyString& name, const MyString& manifacturer, const time_t expiryDate, int kcal, double price)
+	:Product(name, manifacturer, expiryDate, price)
 {
 	setKcal(kcal);
 }

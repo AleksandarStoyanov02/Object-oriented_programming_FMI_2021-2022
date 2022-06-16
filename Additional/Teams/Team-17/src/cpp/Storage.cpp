@@ -63,7 +63,7 @@ size_t Storage::getCount() const
 	return productsCount;
 }
 
-void Storage::addProduct(Product* product)
+void Storage::addProduct(const Product* product)
 {
 	if (productsCount == capacity)
 		resize();
@@ -121,7 +121,7 @@ void Storage::remove(const MyString& name, const MyString& manufacturer)
 		throw "No such item in the storage!";
 	remove(index);
 }
-void Storage::remove(Product* product)
+void Storage::remove(const Product* product)
 {
 	int index = -1;
 	for (int i = 0; i < productsCount; i++)
@@ -136,6 +136,7 @@ void Storage::remove(Product* product)
 		throw "No such item in the storage!";
 	remove(index);
 }
+
 double Storage::getCurrentIncome() const
 {
 	double income = 0;
@@ -143,7 +144,7 @@ double Storage::getCurrentIncome() const
 		income += products[i]->getPrice();
 	return income;
 }
-void Storage::log()
+void Storage::log() const
 {
 	for (int i = 0; i < logData.getSize(); i++)
 	{

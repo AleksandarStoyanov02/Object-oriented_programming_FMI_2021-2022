@@ -87,11 +87,6 @@ MyString& MyString::operator+=(const MyString& other)
 
 Vector<MyString> MyString::split(char s) const
 {
-	int count = 0;
-	for (size_t i = 0; i < size; i++)
-		if (str[i] == s)
-			count++;
-
 	Vector<MyString> list;
 	size_t strIndex = 0;
 	while (str[strIndex] != '\0') {
@@ -100,8 +95,7 @@ Vector<MyString> MyString::split(char s) const
 		while (str[strIndex] != s && str[strIndex] != '\0')
 			current[i++] = str[strIndex++];
 		current[i] = '\0';
-		MyString currentStr(current);
-		list.pushBack(currentStr);
+		list.pushBack(current);
 		if (str[strIndex] == '\0')
 			break;
 		++strIndex;

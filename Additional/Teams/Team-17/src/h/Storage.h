@@ -18,7 +18,7 @@ private:
 	void copyFrom(const Storage& other);
 	void resize();
 
-	void addProduct(Product* account);
+	void addProduct(const Product* account);
 
 	double lostMoney;
 public:
@@ -37,9 +37,9 @@ public:
 
 	void remove(size_t index); // remove product by index
 	void remove(const MyString& name, const MyString& manufacturer); //remove first product with these specifics
-	void remove(Product* product);//remove product
+	void remove(const Product* product);//remove product
 
-	void log();//get information 
+	void log() const;//get information 
 
 	double getCurrentIncome() const;//return the price of all products
 
