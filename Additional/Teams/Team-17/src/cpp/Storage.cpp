@@ -155,7 +155,6 @@ bool Storage::clean()
 {
 	time_t currDate = std::time(NULL);
 	std::tm* now = std::localtime(&currDate);
-	lostMoney = getTotalLostOfMoney();
 	for (int i = 0; i < productsCount; i++)
 	{
 		if (products[i]->getExpiryDate() >= currDate) {
